@@ -189,7 +189,9 @@ bitmapdir=@bitmapdir@
 
 # We use $(srcdir) explicitly in dependencies so as not to depend on VPATH.
 srcdir=@srcdir@
+builddir=@builddir@
 abs_srcdir=@abs_srcdir@
+abs_builddir=@abs_builddir@
 
 # Where the manpage source files are kept.
 mansrcdir=$(srcdir)/doc/man
@@ -263,7 +265,7 @@ lisppath=@lisppath@
 # This should be a colon-separated list of directories.
 # Normally it points to the lisp/ directory in the sources.
 # NB lread.c relies on lisp/ being first here.
-buildlisppath=${abs_srcdir}/lisp
+buildlisppath=${abs_builddir}/lisp
 
 # Where to install the other architecture-independent
 # data files distributed with Emacs (like the tutorial,
@@ -444,11 +446,12 @@ src-depending-on-lisp: lisp
 # newer than that of the pdf files, which are prebuilt in release tarfiles.
 # So we use this rule, and move-if-change, to avoid that.
 etc-emacsver:
+	${MKDIR_P} ${builddir}/etc/refcards; \
 	majorversion=`echo ${version} | sed 's/\..*//'`; \
 	sed "s/[@]majorversion@/$${majorversion}/" \
 	  ${srcdir}/etc/refcards/emacsver.tex.in > emacsver.tex.$$$$ && \
 	  ${srcdir}/build-aux/move-if-change emacsver.tex.$$$$ \
-	  ${srcdir}/etc/refcards/emacsver.tex
+	  ${builddir}/etc/refcards/emacsver.tex
 
 # The shared gamedir name as a C string literal, or a null ptr if not in use.
 PATH_GAME = $(if $(use_gamedir),"$(gamedir)",((char const *) 0))

@@ -461,3 +461,7 @@ extern int emacs_setenv_TZ (char const *);
 #else
 # define UNINIT /* empty */
 #endif
+
+#if defined EMACS_MESONBUILD
+#include <conf_meson.h>
+#endif

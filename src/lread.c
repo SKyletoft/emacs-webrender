@@ -5600,9 +5600,16 @@ and is not meant for users to change.  */);
   DEFVAR_LISP ("source-directory", Vsource_directory,
 	       doc: /* Directory in which Emacs sources were found when Emacs was built.
 You cannot count on them to still be there!  */);
-  Vsource_directory
-    = Fexpand_file_name (build_string ("../"),
-			 Fcar (decode_env_path (0, PATH_DUMPLOADSEARCH, 0)));
+  if (getenv("MESON_SOURCE_ROOT"))
+    {
+      const char* source_root = getenv("MESON_SOURCE_ROOT");
+      Vsource_directory = build_string (source_root);
+    }
+  else {
+    Vsource_directory
+      = Fexpand_file_name (build_string ("../"),
+			   Fcar (decode_env_path (0, PATH_DUMPLOADSEARCH, 0)));
+  }
 
   DEFVAR_LISP ("preloaded-file-list", Vpreloaded_file_list,
 	       doc: /* List of files that were preloaded (when dumping Emacs).  */);

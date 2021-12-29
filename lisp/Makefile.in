@@ -20,9 +20,10 @@
 SHELL = @SHELL@
 
 srcdir = @srcdir@
+builddir = @builddir@
 top_srcdir = @top_srcdir@
 top_builddir = @top_builddir@
-lisp = $(srcdir)
+lisp = $(builddir)
 VPATH = $(srcdir)
 EXEEXT = @EXEEXT@
 
@@ -43,7 +44,7 @@ NATIVE_SKIP_NONDUMP = ""
 endif
 endif
 
--include ${top_builddir}/src/verbose.mk
+-include ${top_srcdir}/src/verbose.mk
 
 FIND_DELETE = @FIND_DELETE@
 
@@ -53,7 +54,7 @@ FIND_DELETE = @FIND_DELETE@
 # We never change directory before running Emacs, so a relative file
 # name is fine, and makes life easier.  If we need to change
 # directory, we can use emacs --chdir.
-EMACS = ../src/emacs${EXEEXT}
+EMACS = ${top_builddir}/src/emacs${EXEEXT}
 
 # Command line flags for Emacs.
 
@@ -66,10 +67,10 @@ BYTE_COMPILE_EXTRA_FLAGS =
 # The example above is just for developers, it should not be used by default.
 
 # All generated autoload files.
-loaddefs = $(shell find ${srcdir} -name '*loaddefs.el' ! -name '.*')
+loaddefs = $(shell find ${builddir} -name '*loaddefs.el' ! -name '.*')
 # Elisp files auto-generated.
-AUTOGENEL = ${loaddefs} ${srcdir}/cus-load.el ${srcdir}/finder-inf.el \
-  ${srcdir}/subdirs.el ${srcdir}/eshell/esh-groups.el
+AUTOGENEL = ${loaddefs} ${buildir}/cus-load.el ${builddir}/finder-inf.el \
+  ${builddir}/subdirs.el ${builddir}/eshell/esh-groups.el
 
 # Set load-prefer-newer for the benefit of the non-bootstrappers.
 BYTE_COMPILE_FLAGS = \
@@ -115,17 +116,17 @@ unexport EMACSDATA EMACSDOC EMACSLOADPATH EMACSPATH
 emacs = '$(EMACS)' $(EMACSOPT)
 
 ## Subdirectories, relative to builddir.
-SUBDIRS = $(sort $(shell find ${srcdir} -type d -print))
+SUBDIRS = $(sort $(shell find ${builddir} -type d -print))
 ## Subdirectories, relative to srcdir.
-SUBDIRS_REL = $(patsubst ${srcdir}%,.%,${SUBDIRS})
+SUBDIRS_REL = $(patsubst ${builddir}%,.%,${SUBDIRS})
 ## All subdirectories except 'obsolete' and 'term'.
-SUBDIRS_ALMOST = $(filter-out ${srcdir}/obsolete ${srcdir}/term,${SUBDIRS})
+SUBDIRS_ALMOST = $(filter-out ${builddir}/obsolete ${builddir}/term,${SUBDIRS})
 ## All subdirectories except 'obsolete', 'term', and 'leim' (and subdirs).
 ## We don't want the leim files listed as packages, especially
 ## since many share basenames with files in language/.
-SUBDIRS_FINDER = $(filter-out ${srcdir}/leim%,${SUBDIRS_ALMOST})
+SUBDIRS_FINDER = $(filter-out ${builddir}/leim%,${SUBDIRS_ALMOST})
 ## All subdirectories in which we might want to create subdirs.el.
-SUBDIRS_SUBDIRS = $(filter-out ${srcdir}/cedet% ${srcdir}/leim%,${SUBDIRS})
+SUBDIRS_SUBDIRS = $(filter-out ${builddir}/cedet% ${builddir}/leim%,${SUBDIRS})
 
 # cus-load, finder-inf and autoloads are not explicitly requested by
 # anything, so we add them here to make sure they get built.
@@ -218,7 +219,7 @@ $(lisp)/subdirs.el:
 	$(AM_V_GEN)$(MAKE) update-subdirs
 update-subdirs:
 	$(AM_V_at)for file in ${SUBDIRS_SUBDIRS}; do \
-	   $(srcdir)/../build-aux/update-subdirs $$file; \
+	   $(top_srcdir)/build-aux/update-subdirs $$file; \
 	done;
 
 .PHONY: updates repo-update update-authors
@@ -411,10 +412,10 @@ gen-lisp: leim semantic
 # (re)compile titdic-cnv before recursing into `leim` since its used to
 # generate some of the Quail source files from tables.
 leim: $(lisp)/international/titdic-cnv.elc
-	$(MAKE) -C ../leim all EMACS="$(EMACS)"
+	$(MAKE) -C ${top_builddir}/leim all EMACS="$(EMACS)"
 
 semantic:
-	$(MAKE) -C ../admin/grammars all EMACS="$(EMACS:.%=../.%)"
+	$(MAKE) -C ${top_builddir}/admin/grammars all EMACS="$(EMACS:.%=../.%)"
 
 # Compile all Lisp files, but don't recompile those that are up to
 # date.  Some .el files don't get compiled because they set the

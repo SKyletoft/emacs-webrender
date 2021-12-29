@@ -28,18 +28,20 @@
 SHELL = @SHELL@
 
 AWK = @AWK@
+MKDIR_P = @MKDIR_P@
 
 srcdir = @srcdir@
+builddir = @builddir@
 top_srcdir = @top_srcdir@
 top_builddir = @top_builddir@
 
-charsetdir = ${top_srcdir}/etc/charsets
-lispintdir = ${top_srcdir}/lisp/international
+charsetdir = ${top_builddir}/etc/charsets
+lispintdir = ${top_builddir}/lisp/international
 mapfiledir = ${srcdir}/mapfiles
 
 GLIBC_CHARMAPS = ${srcdir}/glibc
 
--include ${top_builddir}/src/verbose.mk
+-include ${top_srcdir}/src/verbose.mk
 
 # Note: We can not prepend "ISO-" to these map files because of file
 # name limits on DOS.
@@ -88,7 +90,7 @@ MULE =	MULE-ethiopic.map MULE-ipa.map MULE-is13194.map \
 	MULE-sisheng.map MULE-tibetan.map \
 	MULE-lviscii.map MULE-uviscii.map
 
-SED_SCRIPT = $(srcdir)/jisx2131-filter
+SED_SCRIPT = $(builddir)/jisx2131-filter
 
 TRANS_TABLE = cp51932.el eucjp-ms.el
 TRANS_TABLE := $(addprefix ${lispintdir}/,${TRANS_TABLE})
@@ -98,9 +100,9 @@ CHARSETS := $(addprefix ${charsetdir}/,${CHARSETS})
 
 .PHONY: all
 
-all: ${srcdir}/charsets.stamp
+all: ${builddir}/charsets.stamp
 
-${srcdir}/charsets.stamp: ${CHARSETS} ${TRANS_TABLE}
+${builddir}/charsets.stamp: ${CHARSETS} ${TRANS_TABLE}
 	${AM_V_GEN}echo timestamp > $@
 
 ## Rules for each charset.

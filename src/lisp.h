@@ -20,6 +20,7 @@ along with GNU Emacs.  If not, see <https://www.gnu.org/licenses/>.  */
 #ifndef EMACS_LISP_H
 #define EMACS_LISP_H
 
+#include <config.h>
 #include <alloca.h>
 #include <setjmp.h>
 #include <stdalign.h>

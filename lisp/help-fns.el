@@ -831,6 +831,9 @@ the C sources, too."
   ;; FIXME: Maybe we should also look for announcements of the addition
   ;; of the *packages* in which the function is defined.
   (let* ((re (help-fns--first-release-regexp symbol))
+         (data-directory (if installation-directory
+                             (expand-file-name "etc" source-directory)
+                           data-directory))
          (news (directory-files data-directory t "\\`NEWS\\(\\'\\|\\.\\)"))
          (case-fold-search nil)
          (place nil)

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# build-aux/invoke_configure build_root path/to/configure [options]
+(cd "$1" && "$2" "${@:3}")

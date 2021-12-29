@@ -120,7 +120,11 @@ equals a content-type found in this list, the ImageMagick library is
 told that the data would have the associated suffix if saved to a file.")
 
 (defcustom image-load-path
-  (list (file-name-as-directory (expand-file-name "images" data-directory))
+  (list (file-name-as-directory
+         (expand-file-name "images"
+                           (if installation-directory
+                               (expand-file-name "etc" source-directory)
+                             data-directory)))
         'data-directory 'load-path)
   "List of locations in which to search for image files.
 The images for icons shown in the tool bar are also looked up

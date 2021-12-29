@@ -302,8 +302,11 @@ the name is not known."
 (defun emoji--parse-emoji-test ()
   (setq emoji--labels nil)
   (with-temp-buffer
-    (insert-file-contents (expand-file-name "../admin/unidata/emoji-test.txt"
-                                            data-directory))
+    (insert-file-contents
+     (expand-file-name "../admin/unidata/emoji-test.txt"
+                       (if installation-directory
+                           (expand-file-name "etc" source-directory)
+                         data-directory)))
     (unless (re-search-forward "^# +group:" nil t)
       (error "Can't find start of data"))
     (beginning-of-line)

@@ -1,0 +1,230 @@
+option('window-system', type : 'combo',
+       choices : ['none', 'auto', 'x11', 'nextstep', 'w32', 'be-app', 'pgtk', 'wr'],
+       value : 'auto',
+       description : 'Window system')
+
+option('mailutils', type : 'feature', value : 'auto',
+       description : '''rely on GNU Mailutils, so that the --Dpop=* through
+        --Dmailhost=* options are irrelevant; this is the default if
+        GNU Mailutils is installed''')
+
+option('pop', type : 'feature', value : 'auto',
+       description : '''Support POP mail retrieval if Emacs movemail is used (not recommended,
+      as Emacs movemail POP is insecure).  This is the default only on
+      native MS-Windows.''')
+
+option('kerberos', type : 'feature', value : 'disabled',
+       description : 'support Kerberos-authenticated POP')
+
+option('kerberos5', type : 'feature', value : 'disabled',
+       description : 'support Kerberos version 5 authenticated POP')
+
+option('hesiod', type : 'feature', value : 'disabled',
+       description : 'support Hesiod to get the POP server host')
+
+option('mailhost', type : 'string',
+       description : 'HOSTNAME(string) giving default POP mail host')
+
+option('sound', type : 'combo',
+       choices : ['auto', 'alsa', 'oss', 'ossaudio', 'none'],
+       value : 'auto',
+       description : '''compile with sound support
+       (VALUE one of: yes, alsa, oss, ossaudio, no; default yes).
+       Only for GNU/Linux, FreeBSD, NetBSD, MinGW, Cygwin.''')
+
+option('dumping', type : 'combo',
+       choices : ['auto', 'pdumper', 'unexec', 'none'],
+       value : 'pdumper',
+       description : '''kind of dumping to use for initial Emacs build
+       (VALUE one of: auto, pdumper, unexec, none; default pdumper''')
+
+option('x-toolkit', type : 'combo',
+       choices : ['auto', 'gtk', 'gtk2', 'gtk3', 'lucid', 'athena', 'none'],
+       description : 'use an X toolkit (KIT one of: auto, (gtk2, gtk3) or gtk, lucid or athena, none)')
+
+option('wide-int', type : 'boolean', value : false,
+       description : '''prefer wide Emacs integers (typically 62-bit);
+   on 32-bit hosts, this allows buffer and string size up to 2GB,
+   at the cost of 10% to 30% slowdown of Lisp interpreter
+   and larger memory footprint''')
+
+option('mail-unlink', type : 'feature', value : 'disabled',
+       description : 'unlink, rather than empty, mail spool after reading')
+
+option('xpm', type : 'feature', value : 'auto',
+       description: 'compile with XPM image support')
+
+option('jpeg', type : 'feature', value : 'auto',
+       description: 'compile with JPEG image support')
+
+option('tiff', type : 'feature', value : 'auto',
+       description: 'compile with TIFF image support')
+
+option('gif', type : 'feature', value : 'auto',
+       description: 'compile with GIF image support')
+
+option('png', type : 'feature', value : 'auto',
+       description: 'compile with PNG image support')
+
+option('svg', type : 'feature', value : 'auto',
+       description: 'compile with SVG image support')
+
+option('webp', type : 'feature', value : 'auto',
+       description: 'compile with WebP image support')
+
+option('lcms2', type : 'feature', value : 'auto',
+       description: 'compile with Little CMS support')
+
+option('libsystemd', type : 'feature', value : 'auto',
+       description: 'compile with libsystemd support')
+
+# make cairo required for certain window system
+# option('cairo', type : 'feature', value : 'auto',
+#        description: 'compile with Cairo drawing')
+
+# deprecated in advance
+# option('xft', type : 'feature', value : 'auto',
+#        description: 'use XFT for anti aliased fonts')
+
+option('xml2', type : 'feature', value : 'auto',
+       description: 'compile with XML parsing support')
+
+option('sqlite3', type : 'feature', value : 'auto',
+       description: 'compile with sqlite3 support')
+
+option('imagemagick', type : 'feature', value : 'disabled',
+       description: 'compile with ImageMagick image support')
+
+option('native-image-api', type : 'feature', value : 'auto',
+       description: 'use native image APIs (GDI+ on Windows)')
+
+option('json', type : 'feature', value : 'auto',
+       description : 'compile with native JSON support')
+
+option('harfbuzz', type : 'feature', value : 'auto',
+       description: 'use HarfBuzz for text shaping')
+
+option('libotf', type : 'feature', value : 'auto',
+       description: 'use libotf for OpenType font support')
+
+option('m17n-flt', type : 'feature', value : 'auto',
+       description: 'use m17n-flt for text shaping')
+
+option('toolkit-scroll-bars', type : 'feature', value : 'auto',
+       description: 'use Xaw3d/GTK toolkit scroll bars')
+
+option('xaw3d', type : 'feature', value : 'auto',
+       description: 'use Xaw3d')
+
+option('xim', type : 'feature', value : 'auto',
+       description: 'at runtime, default X11 XIM to off')
+
+option('xdbe', type : 'feature', value : 'auto',
+       description: 'use X11 double buffering support')
+
+option('gpm', type : 'feature', value : 'auto',
+       description: 'use -lgpm for mouse support on a GNU/Linux console')
+
+option('dbus', type : 'feature', value : 'auto',
+       description: 'compile with D-Bus support')
+
+# deprecated in advance
+# option('gconf', type : 'feature', value : 'auto',
+#        description: 'compile with Gconf support (Gsettings replaces this)')
+
+option('gsettings', type : 'feature', value : 'auto',
+       description: 'compile with GSettings support')
+
+option('selinux', type : 'feature', value : 'auto',
+       description: 'compile with SELinux support')
+
+option('gnutls', type : 'feature', value : 'auto',
+       description: 'use -lgnutls for SSL/TLS support')
+
+option('zlib', type : 'feature', value : 'auto',
+       description: 'compile with zlib decompression support')
+
+option('modules', type : 'feature', value : 'auto',
+       description: 'compile with dynamic modules support')
+
+option('threads', type : 'feature', value : 'auto',
+       description: 'compile with elisp threading support')
+
+option('native-compilation', type : 'feature', value : 'disabled',
+       description: 'compile with Emacs Lisp native compiler support')
+
+option('cygwin32-native-compilation', type : 'feature', value : 'disabled',
+       description: 'use native compilation on 32-bit Cygwin')
+
+option('xinput2', type : 'feature', value : 'disabled',
+       description: 'use version 2 of the X Input Extension for input')
+
+option('file-notification', type : 'combo',
+       choices : ['auto', 'inotify', 'kqueue', 'gfile', 'w32', 'none'],
+       description : '''use a file notification library
+(LIB one of: auto, inotify, kqueue, gfile, w32, none)''')
+
+option('xwidgets', type : 'feature', value : 'disabled',
+       description: 'enable use of xwidgets in Emacs buffers (requires gtk3 or macOS Cocoa)')
+
+# option('be-app', type : 'feature', value : 'disabled',
+#        description: 'enable use of Haiku\'s Application Kit as a window system')
+
+# option('be-cairo', type : 'feature', value : 'disabled',
+#        description: 'enable use of cairo under Haiku\'s Application Kit')
+
+option('compress-install', type : 'feature', value : 'auto',
+       description: 'enable use of cairo under Haiku\'s Application Kit')
+
+option('gameuser', type : 'string',
+       description : '''user for shared game score files.
+       An argument prefixed by ':' specifies a group instead.''')
+
+option('gnustep-conf', type : 'string', value: '/etc/GNUstep/GNUstep.conf',
+       description : '''name(FILENAME) of GNUstep configuration file to use on systems where the command
+    'gnustep-config' does not work; default $GNUSTEP_CONFIG_FILE, or
+    /etc/GNUstep/GNUstep.conf''')
+
+option('ns-self-contained', type : 'boolean', value : true,
+       description : 'disable self contained build under NeXTstep')
+
+option('locallisppath', type : 'string',
+       description : '''directories Emacs should search for lisp files specific
+		 to this site''')
+
+option('checking', type : 'array',
+       choices : ['all', 'yes', 'no', 'stringbytes', 'stringoverrun', 'stringfreelist',
+		  'structs', 'glyphs'],
+       description : '''enable expensive checks.  With LIST,
+		 enable only specific categories of checks.
+		 Categories are: all,yes,no.
+		 Flags are: stringbytes, stringoverrun, stringfreelist,
+		 structs, glyphs''')
+
+option('profiling', type : 'boolean', value : false,
+       description : '''build emacs with low-level, gprof profiling support.
+                Mainly useful for debugging Emacs itself.  May not work on
+                all platforms.  Stops profiler.el working.''')
+
+option('build-details', type : 'boolean', value : true,
+       description : '''Make the build more deterministic by omitting host
+		   names, time stamps, etc. from the output.''')
+
+option('gtk-deprecation-warnings', type : 'boolean', value : true,
+       description : 'Show Gtk+/Gdk deprecation warnings for Gtk+ >= 3.0')
+
+option('check-lisp-object-type', type : 'boolean', value : false,
+       description : '''Enable compile time checks for the Lisp_Object data type,
+      which can catch some bugs during development.''')
+
+option('libgmp', type : 'feature', value : 'auto',
+       description : '''use the GNU Multiple Precision (GMP) library;
+        this is the default on systems lacking libgmp.''')
+
+option('acl', type : 'feature', value : 'auto',
+       description : '''support ACLs''')
+
+option('included-regex', type : 'feature', value : 'auto',
+       description : '''compile regex; this is the default on systems
+                     with recent-enough versions of the GNU C Library
+                     (use with caution on other systems).''')

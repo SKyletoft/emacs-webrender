@@ -46,12 +46,12 @@ MKDIR_P = @MKDIR_P@
 # LIBS = @LIBS@
 LIBOBJS = @LIBOBJS@
 
-lispsource = $(top_srcdir)/lisp
-lib = ../lib
-libsrc = ../lib-src
-etc = ../etc
-oldXMenudir = ../oldXMenu
-lwlibdir = ../lwlib
+lispsource = $(top_builddir)/lisp
+lib = $(top_builddir)/lib
+libsrc = $(top_builddir)/lib-src
+etc = $(top_builddir)/etc
+oldXMenudir = $(top_builddir)/oldXMenu
+lwlibdir = $(top_builddir)/lwlib
 
 # Configuration files for .o files to depend on.
 config_h = config.h $(srcdir)/conf_post.h
