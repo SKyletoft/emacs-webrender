@@ -2364,6 +2364,12 @@ Using an Emacs configured with --with-x-toolkit=lucid does not have this problem
       syms_of_fontset ();
 #endif /* HAVE_HAIKU */
 
+#ifdef HAVE_WR
+      syms_of_wrterm ();
+      /* syms_of_wrfns (); */
+      syms_of_fontset ();
+#endif /* HAVE_WR */
+
       syms_of_gnutls ();
 
 #ifdef HAVE_INOTIFY
