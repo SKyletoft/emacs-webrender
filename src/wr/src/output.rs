@@ -215,9 +215,12 @@ impl Output {
     }
 
     fn get_size(window: &Window) -> LayoutSize {
-        let physical_size = window.inner_size();
-        let device_size = LayoutSize::new(physical_size.width as f32, physical_size.height as f32);
-        device_size
+        let device_pixel_ratio = window.scale_factor() as f32;
+        let device_size = {
+            let size = window.inner_size();
+            DeviceIntSize::new(size.width as i32, size.height as i32)
+        };
+        device_size.to_f32() / euclid::Scale::new(device_pixel_ratio)
     }
 
     fn new_builder(&mut self, image: Option<(ImageKey, LayoutRect)>) -> DisplayListBuilder {
