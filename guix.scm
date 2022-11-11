@@ -86,7 +86,7 @@
 
 (package
   (inherit emacs)
-  (name "emacs-ng")
+  (name "WREmacs")
   (version "0.1")
   (source (git-checkout (url (dirname (current-filename)))))
   (build-system meson-build-system)
