@@ -3,6 +3,7 @@
 #
 # See https://github.com/eqrion/cbindgen/blob/master/docs.md#cbindgentoml
 # for detailed documentation of every option here.
+# cbindgen --config cbindgen.toml --crate wrterm --output my_header.h
 
 header = """
 /* Definitions and headers for communication with pure Gtk+3.
@@ -34,3 +35,6 @@ braces = "SameLine"
 line_length = 100
 tab_width = 2
 language = "C"
+
+[parse.expand]
+crates = ["wrterm"]

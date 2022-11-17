@@ -13,6 +13,9 @@
 	      "emacs-rustic"
 	      "emacs-realgud"
 
+	      ;; move it emacs-next-wr as native-input
+	      "rust-cbindgen"
+
 	      "rust@nightly-2022-10-24:rust-docs"
 	      "rust@nightly-2022-10-24:rust-docs-json-preview"
 	      "rust@nightly-2022-10-24:clippy-preview"
