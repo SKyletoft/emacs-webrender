@@ -11,6 +11,10 @@ libc = "0.2"
 lazy_static = "1.4"
 memoffset = "0.7"
 
+# Only want this local crate as dependency on Mac OS X
+[target.'cfg(target_os = "macos")'.dependencies]
+alloc_unexecmacosx = { version = "0.1.0", path = "../../rust_src/alloc_unexecmacosx", optional = true }
+
 [build-dependencies]
 # bindgen = "= 0.61"
 bindgen = "0.46"
@@ -18,5 +22,8 @@ regex = "1.6"
 libc = "0.2"
 
 [features]
+default = []
+# Use unexec crate on Mac
+unexecmacosx = ["alloc_unexecmacosx"]
 window-system = []
 window-system-webrender = ["window-system"]

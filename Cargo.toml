@@ -1,6 +1,7 @@
 [workspace]
 
 members = [
+  "rust_src/alloc_unexecmacosx",
   "src/lisp_types",
   "src/lisp_macros",
   "src/lisp_util",

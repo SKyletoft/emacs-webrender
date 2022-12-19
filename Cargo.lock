@@ -42,6 +42,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "alloc_unexecmacosx"
+version = "0.1.0"
+dependencies = [
+ "libc",
+]
+
+[[package]]
 name = "android_log-sys"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1780,6 +1787,7 @@ dependencies = [
 name = "lisp-types"
 version = "0.1.0"
 dependencies = [
+ "alloc_unexecmacosx",
  "bindgen",
  "lazy_static",
  "libc",

@@ -16,6 +16,17 @@
 // #![feature(maybe_uninit_extra)]
 #![feature(async_closure)]
 
+// Wilfred/remacs#38 : Need to override the allocator for legacy unexec support on Mac.
+#[cfg(all(target_os = "macos", feature = "unexecmacosx"))]
+extern crate alloc_unexecmacosx;
+
+#[cfg(all(target_os = "macos", feature = "unexecmacosx"))]
+use alloc_unexecmacosx::OsxUnexecAlloc;
+
+#[cfg(all(target_os = "macos", feature = "unexecmacosx"))]
+#[global_allocator]
+static ALLOCATOR: OsxUnexecAlloc = OsxUnexecAlloc;
+
 #[rustfmt::skip]
 pub mod bindings;
 #[rustfmt::skip]
