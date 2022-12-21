@@ -1780,6 +1780,18 @@ AC_DEFINE_UNQUOTED([SYSTEM_TYPE], ["$SYSTEM_TYPE"],
   [The type of system you are compiling for; sets 'system-type'.])
 AC_SUBST([SYSTEM_TYPE])
 
+OPTION_DEFAULT_OFF([poll],
+  [(experimental) use 'poll' instead of 'select' for checking file
+  descriptor status.])
+if test "$with_poll" = yes; then
+  AC_CHECK_HEADERS(sys/poll.h)
+  if test "x$ac_cv_header_sys_poll_h" = xyes; then
+    AC_DEFINE([USE_POLL], 1, [Define to 1 if you use poll.])
+    USE_POLL=yes
+  else
+    USE_POLL=no
+  fi
+fi
 
 pre_PKG_CONFIG_CFLAGS=$CFLAGS
 pre_PKG_CONFIG_LIBS=$LIBS
@@ -6786,7 +6798,7 @@ optsep=
 emacs_config_features=
 for opt in ACL BE_APP CAIRO DBUS FREETYPE GCONF GIF GLIB GMP GNUTLS GPM GSETTINGS \
  HARFBUZZ IMAGEMAGICK JPEG JSON LCMS2 LIBOTF LIBSELINUX LIBSYSTEMD LIBXML2 \
- M17N_FLT MODULES NATIVE_COMP NOTIFY NS OLDXMENU PDUMPER PGTK PNG RSVG SECCOMP \
+ M17N_FLT MODULES NATIVE_COMP NOTIFY NS OLDXMENU PDUMPER PGTK PNG POLL RSVG SECCOMP \
  SOUND SQLITE3 THREADS TIFF TOOLKIT_SCROLL_BARS TREE_SITTER \
  UNEXEC WEBP X11 XAW3D XDBE XFT XIM XINPUT2 XPM XWIDGETS X_TOOLKIT \
  ZLIB; do
@@ -6796,7 +6808,7 @@ for opt in ACL BE_APP CAIRO DBUS FREETYPE GCONF GIF GLIB GMP GNUTLS GPM GSETTING
       UNEXEC) val=${with_unexec} ;;
       GLIB) val=${emacs_cv_links_glib} ;;
       NOTIFY|ACL) eval val=\${${opt}_SUMMARY} ;;
-      TOOLKIT_SCROLL_BARS|X_TOOLKIT) eval val=\${USE_$opt} ;;
+      TOOLKIT_SCROLL_BARS|X_TOOLKIT|POLL) eval val=\${USE_$opt} ;;
       THREADS) val=${threads_enabled} ;;
       *) eval val=\${HAVE_$opt} ;;
     esac
@@ -6869,6 +6881,7 @@ AS_ECHO(["  Does Emacs use -lXaw3d?                                 ${HAVE_XAW3D
   Does Emacs have native lisp compiler?                   ${HAVE_NATIVE_COMP}
   Does Emacs use version 2 of the X Input Extension?      ${HAVE_XINPUT2}
   Does Emacs generate a smaller-size Japanese dictionary? ${with_small_ja_dic}
+  Does Emacs use 'poll'?                                  ${USE_POLL}
 "])
 
 if test -n "${EMACSDATA}"; then
