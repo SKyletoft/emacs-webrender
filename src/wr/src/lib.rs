@@ -22,11 +22,15 @@ mod event;
 mod event_loop;
 mod font_db;
 mod fringe;
-mod future;
 mod image;
 mod texture;
 mod util;
 mod wrterm;
+
+pub mod select {
+    pub use crate::select::future::tokio_select_fds;
+    pub mod future;
+}
 
 mod platform {
     #[cfg(target_os = "macos")]
@@ -38,7 +42,7 @@ pub use crate::platform::macos;
 
 pub use crate::wrterm::{tip_frame, wr_display_list};
 
-pub use crate::event_loop::wr_select;
+pub use crate::event_loop::wr_select1;
 pub use crate::wrterm::check_x_display_info;
 pub use crate::wrterm::frame_set_mouse_pixel_position;
 pub use crate::wrterm::get_keysym_name;
